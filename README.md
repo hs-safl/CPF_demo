@@ -4,9 +4,6 @@
 
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
-
-# GitHub repository for CPF demonstration: https://github.com/hs-safl/CPF_demo
-
 Try it on Google colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
 
 ---
