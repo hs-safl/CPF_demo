@@ -1,7 +1,5 @@
 # Machine Learning for Explanation of Sub-grid Convective Precipitation: A Case Study over CONUS using a Convection-allowing Model
 
-## Technical demonstration document with examples
-
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
 Try it on Google colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
