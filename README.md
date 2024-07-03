@@ -1,4 +1,4 @@
-# Machine Learning for Explanation of Sub-grid Convective Precipitation: A Case Study over CONUS using a Convection-allowing Model:
+# Machine Learning for Explanation of Sub-grid Convective Precipitation: A Case Study over CONUS using a Convection-allowing Model
 
 ## Technical demonstration document with examples
 
