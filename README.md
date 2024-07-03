@@ -7,6 +7,8 @@
 
 Github repository for CPF demonstration: https://github.com/hs-safl/CPF_demo
 
+Try on Google colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
+
 ---
 
 ## Table of Contents
@@ -39,12 +41,12 @@ We use the XGBoost (XGB) decision tree to detect the occurrence and to estimate 
 
 The weighted cross entropy loss accounts for the effects of imbalanced labels as the CPFs are rare, and their labels are significantly less than the non-convective ones. In fact, after coarse-graining of the simulations, only 6.1\% of data contains at least one sub-grid CPF. The weighted log-loss or cross-entropy loss for a binary classification is expressed as
 
-$\mathcal{L}_\alpha$ $(\mathbf{x},\boldsymbol{\theta}) = -\sum_{i=1}^N \left[\alpha y_i\log \hat{y}_i+(1-y_i)\log(1-\hat{y}_i)\right]$
+$$\mathcal{L_{\alpha}}=\sum_{i=1}^{N} \left( \mathbf{x}, \boldsymbol{\theta} \right) = \left[\alpha y_i\log \hat{y}_i+(1-y_i)\log(1-\hat{y}_i)\right]$$
 
 where $\alpha$ is the imbalance parameter, $y_i=1 (0)$ is the label for CPFs (non-CPFs), and $\hat{y}_i$ is the probability of $y_i=1$ obtained as function of the input features $\mathbf{x}$ passed through the decision tree with trainable parameters $\boldsymbol{\theta}$. This probability is obtained through the logistic function. Improved detection of convective precipitation is expected for $\alpha>1$ when the training set is imbalanced towards non-CPF events. For the hyperparameter tuning of the tree, we use grid search to find optimal values of the maximum tree depth, learning rate, as well as $\ell_1$-, and $\ell_2$-norm regularization parameters.
 
 When sub-grid convective activities are detected, the XGB decision tree is trained based on a regression loss as follows:
-$\mathcal{L}(\mathbf{x},\boldsymbol{\theta}) = \sum_{i=1}^N \left(n_c^i - \hat{n}_c^i \right)^2$
+$$\mathcal{L}(\mathbf{x},\boldsymbol{\theta}) = \sum_{i=1}^{N} \left(n_c^i - \hat{n}_c^i \right)^2$$
 where $n_c$ and $\hat{n}_c$ are the actual and estimated number of sub-grid CPFs. 
 
 <a name="3"></a> <br>
