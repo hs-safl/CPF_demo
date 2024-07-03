@@ -30,7 +30,7 @@ A predictive understanding of key dynamic, thermodynamic, and cloud microphysica
 
 This technical demonstration document show how XGBoost learns subgrid area fractions of convective precipitation over the CONUS, given dynamic and thermodynamic predictors of precipitation at coarse grid resolutions using multi-layer analysis states by HRRR weather model and labels of CPF by the ground-based radar observations.
 
-<center><img src=https://raw.githubusercontent.com/hs-safl/CPF_demo/main/Figures/Figure_01_a.png width=650></center>
+<center><img src=https://raw.githubusercontent.com/hs-safl/CPF_demo/main/Figures/Figure_01_a.png width=750></center>
 
 Composite reflectivity (a), precipitation rate (b), and convective labels with $>$40 dBZ (c) for a squall line system with a band of convective supercells and stratiform precipitation trailing on May 04, 2021, at 21:00 UTC.
 
