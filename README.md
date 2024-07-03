@@ -5,9 +5,9 @@
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
 
-Github repository for CPF demonstration: https://github.com/hs-safl/CPF_demo
+GitHub repository for CPF demonstration: https://github.com/hs-safl/CPF_demo
 
-Try on Google colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
+Try it on Google colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
 
 ---
 
@@ -36,7 +36,7 @@ Composite reflectivity (a), precipitation rate (b), and convective labels with $
 
 
 ## 2. Methodology <a name="2"></a> <br>
-We use the XGBoost (XGB) decision tree to detect the occurrence and to estimate the number of 3-km convective sub-pixels $n_c$ within 100 km coarse-grained grids. The data points sampled from 2019 to 2021 are used for training and validation , and those sampled in 2022 for testing. For the detection (estimation) step, the weighted cross entropy (mean squared error) loss function is used. 
+We use the XGBoost (XGB) decision tree to detect the occurrence and to estimate the number of 3-km convective sub-pixels $n_c$ within 100 km coarse-grained grids. The data points sampled from 2019 to 2021 are used for training and validation, and those sampled in 2022 for testing. For the detection (estimation) step, the weighted cross entropy (mean squared error) loss function is used. 
 
 The weighted cross entropy loss accounts for the effects of imbalanced labels as the CPFs are rare, and their labels are significantly less than the non-convective ones. In fact, after coarse-graining of the simulations, only 6.1\% of data contains at least one sub-grid CPF. The weighted log-loss or cross-entropy loss for a binary classification is expressed as
 
