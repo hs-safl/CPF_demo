@@ -27,7 +27,7 @@ This technical demonstration document shows how XGBoost learns subgrid area frac
 
 <center><img src=https://raw.githubusercontent.com/hs-safl/CPF_demo/main/Figures/Figure_01_a.png width=750></center>
 
-Composite reflectivity (a), precipitation rate (b), and convective labels with $>$40 dBZ (c) for a squall line system with a band of convective supercells and stratiform precipitation trailing on May 04, 2021, at 21:00 UTC.
+Composite reflectivity (a), precipitation rate (b), and convective labels with >40 dBZ (c) for a squall line system with a band of convective supercells and stratiform precipitation trailing on May 04, 2021, at 21:00 UTC.
 
 
 ## 2. Methodology <a name="2"></a> <br>
@@ -37,7 +37,7 @@ The weighted cross entropy loss accounts for the effects of imbalanced labels as
 
 $$\mathcal{L_{\alpha}}=\sum_{i=1}^{N} \left( \mathbf{x}, \boldsymbol{\theta} \right) = \left[\alpha y_i\log \hat{y}_i+(1-y_i)\log(1-\hat{y}_i)\right]$$
 
-where $\alpha$ is the imbalance parameter, $y_i=1 (0)$ is the label for CPFs (non-CPFs), and $\hat{y}_i$ is the probability of $y_i=1$ obtained as function of the input features $\mathbf{x}$ passed through the decision tree with trainable parameters $\boldsymbol{\theta}$. This probability is obtained through the logistic function. Improved detection of convective precipitation is expected for $\alpha>1$ when the training set is imbalanced towards non-CPF events. For the hyperparameter tuning of the tree, we use grid search to find optimal values of the maximum tree depth, learning rate, as well as $\ell_1$-, and $\ell_2$-norm regularization parameters.
+where $\alpha$ is the imbalance parameter, $y_i=1 (0)$ is the label for CPFs (non-CPFs), and $\hat{y}_i$ is the probability of $y_i=1$ obtained as function of the input features $\mathbf{x}$ passed through the decision tree with trainable parameters $\boldsymbol{\theta}$. This probability is obtained through the logistic function. Improved detection of convective precipitation is expected for $\alpha>1$ when the training set is imbalanced towards non-CPF events. For the hyperparameter tuning of the tree, we use grid search to find optimal values of the maximum tree depth, and learning rate, as well as $\ell_1$-, and $\ell_2$-norm regularization parameters.
 
 When sub-grid convective activities are detected, the XGB decision tree is trained based on a regression loss as follows:
 $$\mathcal{L}(\mathbf{x},\boldsymbol{\theta}) = \sum_{i=1}^{N} \left(n_c^i - \hat{n}_c^i \right)^2$$
