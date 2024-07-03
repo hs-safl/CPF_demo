@@ -142,10 +142,8 @@ fig_conf, axes_conf = plot_confusion_matrix(fig_conf, axes_conf, label_det, pred
 plt.tight_layout(rect=[0.05, 0.05, 1, 1])
 plt.show()
 ```
-
-
     
-![png](CPF_demo_01_files/CPF_demo_01_14_0.png)
+![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/Confusion_matrix.png?raw=true)
     
 
 
@@ -175,10 +173,7 @@ plt.tight_layout(rect=[0.05, 0.05, 1, 1])
 plt.show()
 ```
 
-
-    
-![png](CPF_demo_01_files/CPF_demo_01_18_0.png)
-    
+![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/Density_scatter.png?raw=true)    
 
 
 **Density scatter plots of annual simulated $n_c$ versus estimated $\hat{n}_{c}$ values from the subsampled test dataset across the CONUS.**
@@ -204,7 +199,7 @@ warnings.filterwarnings('ignore')
 arr_lab, arr_pred, zero_arr_anc, zero_arr_reg = predict_storm(xgb_detect, xgb_reg, id_file=5020)
 ```
 
-<center><img src=https://previews.dropbox.com/p/thumb/ACUZR1rC7E1eIX031oN3Pqfm2QVILyBUu1qTJmMtrnlonJMgHHgaBh8uffEUyD_dcoBWvbyt8gOSYFXVt2opWFe8_HrcDkuk8LIaAKGtXgQ8QMMMbjvGinzaBuFFhSezQDpzNF7SPYqTwFA2mABzPJHSyhBB95smIjOrzx95hoLRdIPYZERMviUmaDpDhD9mF8C-nU8GvSy2gLLRoVM5-z7m6yHMl2mU-q_AAS8QNjd5VqIfY_bZvk_W67ZrKP6eWmj7zrOY_RZyENtUMbrp3PwEToHcLKsSLVQS7BnxSstPijipswKEt-ukZtFVruLASJjc_SJX4kHs3i4rJugX8Gnb/p.png width="950"></center>
+<center><img src=https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/Map_5020.png?raw=true width=950></center>
 
 **Original figure**: Map of (a) Composite reflectivity, (b) precipitation rate, and (c) convective labels with $>$40 dBZ on May 21, 2022, at 18:00 UTC in the native HRRR grid (3 km). In panel (c), the ground points labeled as convective (label 1) are marked by red circles for distinguished visualization.
 
@@ -253,10 +248,7 @@ cbar.ax.set_yticklabels(['FN', 'FP', 'TN', 'TP'])
 plt.show()
 ```
 
-
-    
-![png](CPF_demo_01_files/CPF_demo_01_24_0.png)
-    
+![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/MAP_det_5020.png?raw=true)    
 
 
 
@@ -294,9 +286,7 @@ cbar = plt.colorbar(sm, cax=cax) # Similar to fig.colorbar(im, cax = cax)
 plt.show()
 ```
 
-
-    
-![png](CPF_demo_01_files/CPF_demo_01_25_0.png)
+![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/MAP_reg_5020.png?raw=true)
     
 
 
