@@ -200,7 +200,7 @@ arr_lab, arr_pred, zero_arr_anc, zero_arr_reg = predict_storm(xgb_detect, xgb_re
 
 <center><img src=https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/Map_5020.png?raw=true width=950></center>
 
-**Original figure**: Map of (a) Composite reflectivity, (b) precipitation rate, and (c) convective labels with $>$40 dBZ on May 21, 2022, at 18:00 UTC in the native HRRR grid (3 km). In panel (c), the ground points labeled as convective (label 1) are marked by red circles for distinguished visualization.
+**Map of (a) Composite reflectivity, (b) precipitation rate, and (c) convective labels with $>$40 dBZ on May 21, 2022, at 18:00 UTC in the native HRRR grid (3 km). In panel (c), the ground points labeled as convective (label 1) are marked by red circles for distinguished visualization.**
 
 
 ```python
