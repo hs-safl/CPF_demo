@@ -2,8 +2,6 @@
 
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PyJPKiFPU1EbGVEHDhod7W18uMhbaqhd?usp=sharing)
-
 ---
 
 ## Table of Contents
