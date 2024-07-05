@@ -2,6 +2,8 @@
 
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hs-safl/CPF_demo/blob/main/CPF_demonstration.ipynb)
+
 ---
 
 ## Table of Contents
