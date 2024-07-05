@@ -41,7 +41,7 @@ def column_names():
 
 class CPF_Preparation():
     
-    def __init__(self, path_data='/panfs/jay/groups/0/ebtehaj/kang0511/DIR_Jupyter/CPF_data/CPF_detection_seasonal.mat'):
+    def __init__(self, path_data='./Data/CPF_detection_seasonal.mat'):
 
         mat_detection = loadmat(path_data)
         col_name, df_col_name = column_names()
@@ -53,7 +53,7 @@ class CPF_Preparation():
 
 
         
-def CPF_test_dataset(path_data='/panfs/jay/groups/0/ebtehaj/kang0511/DIR_Jupyter/CPF_data/CPF_testdata.mat', arg_regression=1):
+def CPF_test_dataset(path_data='./Data/CPF_testdata.mat', arg_regression=1):
     
         mat_cont = loadmat(path_data)
         col_name, df_col_name = column_names()
@@ -80,7 +80,7 @@ def CPF_test_dataset(path_data='/panfs/jay/groups/0/ebtehaj/kang0511/DIR_Jupyter
 
 
     
-def CPF_train_dataset(path_data='/panfs/jay/groups/0/ebtehaj/kang0511/DIR_Jupyter/CPF_data/CPF_testdata.mat', arg_regression=1):
+def CPF_train_dataset(path_data='./Data/CPF_testdata.mat', arg_regression=1):
     
         mat_cont = loadmat(path_data)
         col_name, df_col_name = column_names()
@@ -90,18 +90,19 @@ def CPF_train_dataset(path_data='/panfs/jay/groups/0/ebtehaj/kang0511/DIR_Jupyte
 
         # construct a dataframe
         df = pd.DataFrame(mat_X, columns=col_name)
-        df.insert(74, "label", lab_y, True)
+        df.insert(74, "nc", lab_y, True)
         df.insert(75, "date", mat_cont['date_99_train'])
         
         if arg_regression == 1:
             # dataset for regression
-            nz_df = df[df['label']>0]
-            nz_df.reset_index(drop=True)
+            # nz_df = df[df['nc']>0]
+            # nz_df.reset_index(drop=True)
+            nz_df = df
 
         else:
             # dataset for detection
             nz_df = df
-            nz_df.loc[nz_df['label']>0, 'nc'] = 1
+            nz_df.loc[nz_df['nc']>0, 'nc'] = 1
                 
         return nz_df
 
@@ -120,12 +121,12 @@ class Para_settings():
                 }
         
         self.reg = {
-                'max_depth': 10,
+                'max_depth': 12,
                 'eta': 0.1,
-                'lambda': 0.8,
-                'alpha': 0.1,
+                'lambda': 1.0,
+                'alpha': 0.4,
                 'objective': 'count:poisson',
-                'eval_metric': 'rmse',
+                'eval_metric': 'rmse',    
                 }
         
 
@@ -247,7 +248,7 @@ def density_scatter(x_0, y_0, ax = None, sort = True, bins = 50, **kwargs ):
     return ax
 
 def hrrr_coord():
-    mat_cont = loadmat('/home/ebtehaj/kang0511/DIR_Jupyter/CPF_data/CPF_coordinates.mat')
+    mat_cont = loadmat('./Data/CPF_coordinates.mat')
 
 #     lat_hrrr = mat_cont['lat_hrrr']
 #     lon_hrrr = mat_cont['lon_hrrr']
@@ -260,19 +261,16 @@ def hrrr_coord():
     return lat_coarse, lon_coarse, mask_coarse
 
     
-def predict_storm(xgb_detect, xgb_reg, id_file=5083):
+def predict_storm(xgb_detect, xgb_reg, id_file=0):
 
     lat_coarse, lon_coarse, mask_coarse = hrrr_coord()    
-    mat_files = glob('/scratch.global/kang0511_scratch/coarse_compatible/csp_10_99/*.mat')
+    mat_files = glob('./Data/c99_*.mat')
 
     
     # id_file = 5083  # be careful of index in Python and Matlab
-    mat_files[id_file]
 
     tp_str = mat_files[0]
     tp_str.split('c99_')[1].split('.mat')[0]
-    mat_cont = loadmat(mat_files[1])
-    # sorted(mat_cont.keys())
 
     fpath = mat_files[id_file]
 
@@ -303,7 +301,7 @@ def predict_storm(xgb_detect, xgb_reg, id_file=5083):
     arr_anc = lab_Y.reshape(np.shape(lat_coarse), order='F')
     arr_reg = reg_y.reshape(np.shape(lat_coarse), order='F')
 
-    mask_zero = arr_anc.copy()
+    mask_zero = arr_lab.copy()
     mask_zero[mask_zero==0] = np.nan
 
     zero_arr_anc = np.multiply(mask_zero, arr_anc)
@@ -383,3 +381,33 @@ def plot_density_scatter_annual(fig_reg, axes_reg, label_reg, pred_reg):
     fig_reg.text(0.04, 0.54, '$n_c$', va='center', rotation='vertical', fontsize=12)
     
     return fig_reg, axes_reg
+
+
+def map_contingency(mask_coarse, arr_pred):
+    
+    vec_pred = np.multiply(mask_coarse, arr_pred)
+    
+    num_TP = np.sum(vec_pred == 1)
+    num_TN = np.sum(vec_pred == 0)
+    num_FP = np.sum(vec_pred == -1)
+    num_FN = np.sum(vec_pred == -2)
+    
+    m_precision = num_TP / (num_TP+num_FP)
+    m_recall = num_TP / (num_TP+num_FN)
+    
+    m_f1 = 2*m_precision*m_recall / (m_precision+m_recall)
+    m_accuracy = (num_TP+num_TN)/(num_TP+num_TN+num_FP+num_FN)
+    
+    print("Accuracy : {0:0.3f},  F1-score: {1:0.3f}".format(m_accuracy, m_f1) )
+    print("Precision: {0:0.3f},  Recall:   {1:0.3f}".format(m_precision, m_recall) )
+    
+    return
+
+def map_metrics(zero_arr_anc, zero_arr_reg):
+    m_mae = np.nanmean(np.abs(zero_arr_anc.ravel() - zero_arr_reg.ravel()))
+    m_bias = np.nanmean(zero_arr_reg.ravel() - zero_arr_anc.ravel())
+    m_rmse = np.sqrt(np.nanmean(np.square(zero_arr_reg.ravel() - zero_arr_anc.ravel())))
+    
+    print("rmse: {0:0.3f}, mae: {1:0.3f}, bias: {2:0.3f}".format(m_rmse, m_mae, m_bias) )
+    
+    return
