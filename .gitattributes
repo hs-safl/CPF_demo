@@ -1,3 +1,2 @@
-Models/*.json filter=lfs diff=lfs merge=lfs -text
 Models/CPF_xgb_detection.json filter=lfs diff=lfs merge=lfs -text
 Models/CPF_xgb_regression.json filter=lfs diff=lfs merge=lfs -text
