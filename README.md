@@ -1,8 +1,11 @@
 # Machine Learning for Explanation of Sub-grid Convective Precipitation: A Case Study over CONUS using a Convection-allowing Model
 
+												 
+
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hs-safl/CPF_demo/blob/main/CPF_demonstration.ipynb)
+																			
 
 ---
 
@@ -20,10 +23,11 @@
 ---
 
 ## 1. Introduction <a name="1"></a> <br>
+				  
 
 A predictive understanding of key dynamic, thermodynamic, and cloud microphysical predictors controlling the sub-grid scale occurrence of convective precipitation is important to shrink the uncertainties in climate projects of changes in extreme precipitation given simulations of the general circulation models. This paper studies the performance of the eXtreme gradient boosting decision trees for the detection of convective precipitation features (CPF) and the estimation of their sub-grid extent through learning from observationally contained hourly simulations at 3-km grids by the convection-allowing High-Resolution Rapid Refresh (HRRR) weather forecasting model over the conterminous United States. Accounting for the imbalanced nature of detecting CPFs through a classification problem, the annual results demonstrate that 85\% of CPFs can be detected with a conditional mean absolute error of 8 sub-grid events, given key CPFs predictors at 100 km grids. Seasonal variability of the detection and estimation quality metrics show strong connections with unknown distinct seasonal large-scale environments controlling the space-time dynamics of mesoscale convective systems in summer and winter. Explaining the decision tree through Shapley analyses uncovers that cloud liquid and ice water content are the most important predictors in the detection step; however, the sub-grid extent of CPFs is largely controlled by the mid-level vorticity produced by the heating profiles of the convective systems.
 
-This set of python codes shows how XGBoost learns subgrid area fractions of convective precipitation over the CONUS, given dynamic and thermodynamic predictors of precipitation at coarse grid resolutions using multi-layer analysis states by HRRR weather model and labels of CPF by the ground-based radar observations.
+This technical demonstration document show how XGBoost learns subgrid area fractions of convective precipitation over the CONUS, given dynamic and thermodynamic predictors of precipitation at coarse grid resolutions using multi-layer analysis states by HRRR weather model and labels of CPF by the ground-based radar observations.
 
 <center><img src=https://raw.githubusercontent.com/hs-safl/CPF_demo/main/Figures/Figure_01_a.png width=750></center>
 
@@ -36,7 +40,13 @@ We use the XGBoost (XGB) decision tree to detect the occurrence and to estimate 
 The weighted cross entropy loss accounts for the effects of imbalanced labels as the CPFs are rare, and their labels are significantly less than the non-convective ones. In fact, after coarse-graining of the simulations, only 6.1\% of data contains at least one sub-grid CPF. The weighted log-loss or cross-entropy loss for a binary classification is expressed as
 
 $$\mathcal{L_{\alpha}}=\sum_{i=1}^{N} \left( \mathbf{x}, \boldsymbol{\theta} \right) = \left[\alpha y_i\log \hat{y}_i+(1-y_i)\log(1-\hat{y}_i)\right]$$
+				 
+																																																																																																	   
 
+																																																																																											
+				
+																																				   
+			  
 where $\alpha$ is the imbalance parameter, $y_i=1 (0)$ is the label for CPFs (non-CPFs), and $\hat{y}_i$ is the probability of $y_i=1$ obtained as function of the input features $\mathbf{x}$ passed through the decision tree with trainable parameters $\boldsymbol{\theta}$. This probability is obtained through the logistic function. Improved detection of convective precipitation is expected for $\alpha>1$ when the training set is imbalanced towards non-CPF events. For the hyperparameter tuning of the tree, we use grid search to find optimal values of the maximum tree depth, and learning rate, as well as $\ell_1$-, and $\ell_2$-norm regularization parameters.
 
 When sub-grid convective activities are detected, the XGB decision tree is trained based on a regression loss as follows:
@@ -45,6 +55,7 @@ where $n_c$ and $\hat{n}_c$ are the actual and estimated number of sub-grid CPFs
 
 
 ## 3. Data <a name="3"></a> <br>
+		  
 
 The input data are observational constrained coarse-grained hourly HRRR simulations of 74 analysis state variables at 3 km resolution throughout the depth of the atmosphere from 2019 to 2022 at 100 km to resemble the spatial scale of GCM simulations. The HRRR simulations are concatenated by data assimilation of a suite of conventional observations (e.g., aircraft, radiosonde, buoy/ship, and satellites) used for the Rapid Refresh (RAP) as well as three-dimensional radar-reflectivity observations provided through the NOAA's Multi-Radar Multi-Sensor project (MRMS). The surface and integrated predictors are the 2-m air temperature ($T_{2m}$, $\mathrm{K}$), specific humidity ($q_{2m}$, $\mathrm{kg/kg}$), surface pressure ($P_{s}$, $\mathrm{Pa}$), and total precipitable water ($\mathrm{TPW}$, $\mathrm{kg/m^2}$). Atmospheric variables are temperature ($T$), specific humidity ($q$, $\mathrm{kg/kg}$), geopotential height, ($z$, gpm), mixing ratio of liquid water ($q_{l}$, $\mathrm{kg/kg}$) and ice ($q_{i}$, $\mathrm{kg/kg}$), vertical velocity ($v$, $\mathrm{Pa/s}$), and absolute vorticity ($\omega$, $\mathrm{1/s}$) at pressure levels extending from 1000 to 100 hPa with 100 hPa intervals.
 
@@ -52,6 +63,7 @@ Here, for quick emplementation, the downsmapled train and test dataset is provid
 
 
  ## 4. Skill evaluation <a name="4"></a> <br>
+					  
 
 For better readability, most of lines occupying space are placed in "utils.py". One can find and make change of the parameters used in this document.
 
@@ -72,6 +84,7 @@ from sklearn.model_selection import train_test_split
 
 
 ### 4.1 Data preparation <a name="41"></a> <br>
+						
 Subsampled train dataset is loaded by class "CPF_train_dataset". set *arg_regression=0* when it is for detection and set *arg_regression=1* for estimation. The size of validation set is 1000 and random seed is given for the consistent result. One might try different validation dataset size and random seeed.
 
 
@@ -83,6 +96,7 @@ df_reg_train, df_reg_test = train_test_split(CPF_train_dataset(arg_regression=1)
 
 
 ### 4.2 Training models <a name="42"></a> <br>
+					   
 
 
 ```python
@@ -114,6 +128,7 @@ else:
 ```
 
 
+					  
 ### 4.3 Evaluation of skill to detect CPFs <a name="43"></a> <br>
 
 
@@ -146,6 +161,9 @@ plt.show()
 
 ### 4.4 Evaluation of skill to estimate CPFs <a name="44"></a> <br>
 
+					  
+											
+
 
 
 ```python
@@ -168,13 +186,13 @@ plt.show()
 ```
 
 ![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/Density_scatter.png?raw=true)    
+										
 
 
 **Density scatter plots of annual simulated $n_c$ versus estimated $\hat{n}_{c}$ values from the subsampled test dataset across the CONUS.**
 
-Note that original figure was drawn scatterdensityplot package in R whereas for better visualization, those reproduced figures were drawn by matplotlib scatter method
 
-
+					 
 ## 5. Detection and estimation of CPFs over CONUS <a name="5"></a> <br>
 
 
@@ -244,6 +262,8 @@ plt.show()
 
 ![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/MAP_det_5020.png?raw=true)    
 
+										
+
 
 
 ```python
@@ -281,4 +301,3 @@ plt.show()
 ```
 
 ![png](https://github.com/hs-safl/CPF_demo/blob/main/Figures/demo/MAP_reg_5020.png?raw=true)
-    
