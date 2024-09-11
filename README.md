@@ -4,6 +4,7 @@
 
 **Hyoungseok Kang and Ardeshir Ebtehaj**
 
+Try this example on Google Colab!
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hs-safl/CPF_demo/blob/main/CPF_demonstration.ipynb)
 																			
 
